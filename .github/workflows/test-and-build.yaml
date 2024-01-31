@@ -1,0 +1,36 @@
+name: test-and-build
+run-name: Test and Build
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+jobs:
+  test-and-build:
+    if: "!startsWith(github.event.head_commit.message, 'bump:')"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Check for ESLint errors
+        run: npm run lint
+
+      - name: Build Project
+        run: npm run build
+
+      - name: Run Tests
+        run: npm run test:coverage
