@@ -1,12 +1,17 @@
 {
   "name": "pharmastock",
   "version": "1.0.0",
-  "description": "",
+  "description": "Sistema de Gerenciamento de Estoque para uma Farmácia",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "tsup": "8.0.1",
+    "tsx": "4.7.0",
+    "typescript": "5.3.3"
+  }
 }
