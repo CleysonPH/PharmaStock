@@ -1,7 +1,7 @@
 {
   "name": "pharmastock",
   "version": "1.1.0",
-  "description": "Sistema de Gerenciamento de Estoque para uma Farm\u00e1cia",
+  "description": "Sistema de Gerenciamento de Estoque para uma Farmácia",
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -34,6 +34,8 @@
     "vitest": "^1.2.2"
   },
   "dependencies": {
-    "express": "^4.18.2"
+    "dotenv": "^16.4.1",
+    "express": "^4.18.2",
+    "zod": "^3.22.4"
   }
 }
