@@ -6,9 +6,13 @@ export default defineConfig({
   test: {
     include: ['src/**/*.spec.ts'],
     coverage: {
+      reporter: 'lcov',
       exclude: [
         'build',
-        'src/server.ts'
+        'src/server.ts',
+        'src/core/repositories',
+        'src/core/domain',
+        'src/config'
       ]
     }
   }
