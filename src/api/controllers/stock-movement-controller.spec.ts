@@ -80,4 +80,26 @@ describe('StockMovementController', async () => {
 
     expect(response.status).toBe(404);
   });
+
+  it('should return status 400 if medicine is out of stock', async () => {
+    const medicineResponse = await request(app)
+      .post('/api/medicines')
+      .send({
+        name: 'Paracetamol',
+        description: 'Painkiller',
+        price: 10
+      });
+
+    const medicineId = medicineResponse.body.id;
+
+    const response = await request(app)
+      .post('/api/stock-movements')
+      .send({
+        medicineId,
+        quantity: 10,
+        type: 'OUT'
+      });
+
+    expect(response.status).toBe(400);
+  });
 });
