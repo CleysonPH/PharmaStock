@@ -1,6 +1,7 @@
 import { MedicineFactory } from '@/config/factories/medicine-factory';
 import { type Request, type Response } from 'express';
 import { z } from 'zod';
+import { handleZodError } from '../utils';
 
 export class MedicineController {
 
@@ -11,11 +12,12 @@ export class MedicineController {
       price: z.number().positive()
     });
 
-    const {
-      name,
-      description,
-      price
-    } = createMedicineBodySchema.parse(req.body);
+    const valitationResult = createMedicineBodySchema.safeParse(req.body);
+    if (!valitationResult.success) {
+      handleZodError(valitationResult.error, res);
+      return;
+    }
+    const { name, description, price } = valitationResult.data;
 
     const usecase = MedicineFactory.createMedicineUseCase;
     const medicine = await usecase.execute({
