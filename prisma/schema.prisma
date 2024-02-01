@@ -16,6 +16,20 @@ model Medicine {
   description String
   quantity Int
   price Float
+
+  stockMovements StockMovement[]
   
   @@map("medicines")
+}
+
+model StockMovement {
+  id String @id @default(uuid())
+  quantity Int
+  type String // "IN" or "OUT"
+  movementDate DateTime @default(now()) @map("movement_date")
+  
+  medicine Medicine @relation(fields: [medicineId], references: [id])
+  medicineId String @map("medicine_id")
+  
+  @@map("stock_movements")
 }
