@@ -6,7 +6,7 @@ import { handleError } from '../handlers';
 
 export class StockMovementController {
 
-  static async createStockMovement(req: Request, res: Response): Promise<void> {
+  static async create(req: Request, res: Response): Promise<void> {
     try {
       const createStockMovementBodySchema = z.object({
         medicineId: z.string().uuid(),
