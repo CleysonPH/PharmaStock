@@ -1,3 +1,22 @@
+## 1.2.0 (2024-02-01)
+
+### Feat
+
+- add zod validation error handler
+- add create medicine controller
+- add create medicine use case
+- add prisma medicine repository
+- create medicine prisma model
+- add medice domain
+
+### Fix
+
+- fix model medicine domain name
+
+### Refactor
+
+- changee the controllers to be static
+
 ## 1.1.1 (2024-01-31)
 
 ### Refactor
