@@ -1,4 +1,4 @@
-export interface Medice {
+export interface Medicine {
   id?: string,
   name: string,
   description: string,
