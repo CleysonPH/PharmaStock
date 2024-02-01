@@ -1,8 +1,14 @@
-import { StockMovement } from '../domain/stock-movement-domain';
+import { StockMovement, StockMovementType } from '../domain/stock-movement-domain';
 import { MedicineNotFoundError } from '../errors/medicine-not-found-error';
 import { OutOfStockError } from '../errors/out-of-stock-error';
 import { MedicineRepository } from '../repositories/medicine-repository';
 import { StockMovementRepository } from '../repositories/stock-movement-repository';
+
+export interface CreateStockMovementInput {
+  medicineId: string,
+  quantity: number,
+  type: StockMovementType,
+}
 
 export class CreateStockMovementUseCase {
   constructor(
@@ -10,7 +16,9 @@ export class CreateStockMovementUseCase {
     private _medicineRepository: MedicineRepository
   ) {}
 
-  async execute(stockMovement: StockMovement) {
+  async execute(
+    stockMovement: CreateStockMovementInput
+  ): Promise<StockMovement> {
     const medicine = await this._medicineRepository.findById(
       stockMovement.medicineId
     );
@@ -25,7 +33,10 @@ export class CreateStockMovementUseCase {
     }
 
     const createdStockMovement = await this._stockMovementRepository.create(
-      stockMovement
+      {
+        ...stockMovement,
+        movementDate: new Date()
+      }
     );
     await this._medicineRepository.update({
       ...medicine,
