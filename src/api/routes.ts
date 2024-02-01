@@ -8,3 +8,5 @@ apiRoutes.get('/ping', PingController.ping);
 
 apiRoutes.post('/medicines', MedicineController.create);
 apiRoutes.put('/medicines/:id', MedicineController.update);
+
+apiRoutes.post('/stock-movements', MedicineController.create);
