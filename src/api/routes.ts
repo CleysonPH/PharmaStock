@@ -7,3 +7,4 @@ export const apiRoutes = Router();
 apiRoutes.get('/ping', PingController.ping);
 
 apiRoutes.post('/medicines', MedicineController.create);
+apiRoutes.put('/medicines/:id', MedicineController.update);

@@ -2,6 +2,7 @@ import { InMemoryMedicineRepository } from '@/core/repositories/inmemory/in-memo
 import { MedicineRepository } from '@/core/repositories/medicine-repository';
 import { PrismaMedicineRepository } from '@/core/repositories/prisma/prisma-medicine-repository';
 import { CreateMedicineUseCase } from '@/core/usecases/create-medicine-use-case';
+import { UpdateMedicineUseCase } from '@/core/usecases/update-medicine-use-case';
 import { env } from '../env';
 
 export class MedicineFactory {
@@ -19,6 +20,10 @@ export class MedicineFactory {
 
   static get createMedicineUseCase() {
     return new CreateMedicineUseCase(this.medicineRepository);
+  }
+
+  static get updateMedicineUseCase() {
+    return new UpdateMedicineUseCase(this.medicineRepository);
   }
 
 }
