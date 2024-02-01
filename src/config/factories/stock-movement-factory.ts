@@ -7,7 +7,7 @@ import { MedicineFactory } from './medicine-factory';
 
 export class StockMovementFactory {
 
-  static _stockMovementRepositoryInstance: StockMovementRepository;
+  private static _stockMovementRepositoryInstance: StockMovementRepository;
 
   static get stockMovementRepository() {
     if (!this._stockMovementRepositoryInstance) {

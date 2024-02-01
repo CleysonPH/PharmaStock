@@ -7,7 +7,7 @@ import { env } from '../env';
 
 export class MedicineFactory {
 
-  static _medicineRepositoryInstance: MedicineRepository;
+  private static _medicineRepositoryInstance: MedicineRepository;
 
   static get medicineRepository() {
     if (!this._medicineRepositoryInstance) {
