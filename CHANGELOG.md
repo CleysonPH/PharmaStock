@@ -1,3 +1,16 @@
+## 1.3.0 (2024-02-01)
+
+### Feat
+
+- implements update medicine route
+- implements update medicine use case
+- implements update in medicine repository
+
+### Refactor
+
+- fix sonar issues
+- fix sonar issues
+
 ## 1.2.0 (2024-02-01)
 
 ### Feat
