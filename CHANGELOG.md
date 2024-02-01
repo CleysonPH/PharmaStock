@@ -1,3 +1,18 @@
+## 1.4.0 (2024-02-01)
+
+### Feat
+
+- handle out of stock error
+- add create stock movement route
+- add create stock movement use case
+- add repositories for stock movement
+- add stock movement model
+- add stock movement domain
+
+### Refactor
+
+- fix sonar issues
+
 ## 1.3.0 (2024-02-01)
 
 ### Feat
