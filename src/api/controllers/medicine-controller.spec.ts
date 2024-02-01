@@ -1,4 +1,5 @@
 import { app } from '@/app';
+import { randomUUID } from 'node:crypto';
 import request from 'supertest';
 import { describe, expect, it } from 'vitest';
 
@@ -161,5 +162,58 @@ describe('MedicineController', async () => {
       });
 
     expect(response.status).toBe(400);
+  });
+
+  it('should return status 200 if medicine is updated', async () => {
+    const creationResponse = await request(app)
+      .post('/api/medicines')
+      .send({
+        name: 'Paracetamol',
+        description: 'Painkiller',
+        price: 10
+      });
+
+    const { id } = creationResponse.body;
+
+    const response = await request(app)
+      .put(`/api/medicines/${ id }`)
+      .send({
+        name: 'Paracetamol 500mg',
+        description: 'Painkiller Edited',
+        price: 20
+      });
+
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual({
+      id,
+      name: 'Paracetamol 500mg',
+      description: 'Painkiller Edited',
+      price: 20,
+      quantity: 0
+    });
+  });
+
+  it('should return status 400 if id is not a uuid', async () => {
+    const response = await request(app)
+      .put('/api/medicines/123')
+      .send({
+        name: 'Paracetamol 500mg',
+        description: 'Painkiller Edited',
+        price: 20
+      });
+
+    expect(response.status).toBe(400);
+  });
+
+  it('should return status 404 if medicine is not found', async () => {
+    const response = await request(app)
+      .put(`/api/medicines/${ randomUUID() }`)
+      .send({
+        name: 'Paracetamol 500mg',
+        description: 'Painkiller Edited',
+        price: 20
+      });
+
+    expect(response.status).toBe(404);
   });
 });

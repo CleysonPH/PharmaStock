@@ -8,7 +8,10 @@ export default defineConfig({
     coverage: {
       exclude: [
         'build',
-        'src/server.ts'
+        'src/server.ts',
+        'src/core/repositories',
+        'src/core/domain',
+        'src/config'
       ]
     }
   }
