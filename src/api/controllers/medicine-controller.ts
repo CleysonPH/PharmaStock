@@ -1,12 +1,10 @@
-import { CreateMedicineUseCase } from '@/core/usecases/create-medicine-use-case';
+import { MedicineFactory } from '@/config/factories/medicine-factory';
 import { type Request, type Response } from 'express';
 import { z } from 'zod';
 
 export class MedicineController {
 
-  constructor(private _createMedicineUseCase: CreateMedicineUseCase) { }
-
-  create (req: Request, res: Response): void {
+  static async create (req: Request, res: Response): Promise<void> {
     const createMedicineBodySchema = z.object({
       name: z.string().min(3).max(100),
       description: z.string().min(3).max(255),
@@ -19,7 +17,8 @@ export class MedicineController {
       price
     } = createMedicineBodySchema.parse(req.body);
 
-    const medicine = this._createMedicineUseCase.execute({
+    const usecase = MedicineFactory.createMedicineUseCase;
+    const medicine = await usecase.execute({
       name,
       description,
       price,
