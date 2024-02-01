@@ -10,6 +10,15 @@ export class InMemoryMedicineRepository implements MedicineRepository {
     this._medicines = initialMedicines;
   }
 
+  update(medicine: Medicine): Promise<Medicine | null> {
+    const index = this._medicines.findIndex((m) => m.id === medicine.id);
+    if (index === -1) {
+      return Promise.resolve(null);
+    }
+    this._medicines[index] = medicine;
+    return Promise.resolve(medicine);
+  }
+
   create(medicine: Medicine): Promise<Medicine> {
     medicine.id = randomUUID();
     this._medicines.push(medicine);
