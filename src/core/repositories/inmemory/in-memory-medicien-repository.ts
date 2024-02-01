@@ -11,7 +11,7 @@ export class InMemoryMedicineRepository implements MedicineRepository {
   }
   findById(id: string): Promise<Medicine | null> {
     const medicine = this._medicines.find((m) => m.id === id);
-    return Promise.resolve(medicine || null);
+    return Promise.resolve(medicine ?? null);
   }
 
   update(medicine: Medicine): Promise<Medicine | null> {
