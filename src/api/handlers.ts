@@ -1,9 +1,16 @@
 import { NotFoundError } from '@/core/errors/not-found-error';
+import { OutOfStockError } from '@/core/errors/out-of-stock-error';
 import { Response } from 'express';
 import { ZodError } from 'zod';
 
 const handleNotFoundError = (error: NotFoundError, res: Response) => {
   res.status(404).json({
+    message: error.message
+  });
+};
+
+const handleOutOfStockError = (error: OutOfStockError, res: Response) => {
+  res.status(400).json({
     message: error.message
   });
 };
@@ -29,6 +36,9 @@ const handleError = (
     return;
   } else if (error instanceof ZodError) {
     handleZodError(error, res);
+    return;
+  } else if (error instanceof OutOfStockError) {
+    handleOutOfStockError(error, res);
     return;
   }
   res.status(500).json({
