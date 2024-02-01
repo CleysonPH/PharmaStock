@@ -5,7 +5,7 @@ import { handleError } from '../handlers';
 
 export class MedicineController {
 
-  static async create (req: Request, res: Response): Promise<void> {
+  static async create (req: Request, res: Response) {
     try {
       const createMedicineBodySchema = z.object({
         name: z.string().min(3).max(100),
@@ -31,7 +31,7 @@ export class MedicineController {
     }
   }
 
-  static async update (req: Request, res: Response): Promise<void> {
+  static async update (req: Request, res: Response) {
     try {
       const updateMedicineParamsSchema = z.object({
         id: z.string().uuid()
