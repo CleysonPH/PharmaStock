@@ -1,4 +1,4 @@
-import { InMemoryMedicineRepository } from '@/core/repositories/inmemory/in-memory-medicien-repository';
+import { InMemoryMedicineRepository } from '@/core/repositories/inmemory/in-memory-medicine-repository';
 import { MedicineRepository } from '@/core/repositories/medicine-repository';
 import { PrismaMedicineRepository } from '@/core/repositories/prisma/prisma-medicine-repository';
 import { CreateMedicineUseCase } from '@/core/usecases/create-medicine-use-case';

@@ -4,6 +4,10 @@ import { MedicineRepository } from '../medicine-repository';
 
 export class PrismaMedicineRepository implements MedicineRepository {
 
+  async findAll(): Promise<Medicine[]> {
+    return await prisma.medicine.findMany();
+  }
+
   async findById(id: string): Promise<Medicine | null> {
     return await prisma.medicine.findUnique({
       where: {

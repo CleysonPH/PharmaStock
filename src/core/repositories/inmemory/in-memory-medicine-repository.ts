@@ -9,6 +9,11 @@ export class InMemoryMedicineRepository implements MedicineRepository {
   constructor(initialMedicines: Medicine[] = []) {
     this._medicines = initialMedicines;
   }
+
+  findAll(): Promise<Medicine[]> {
+    return Promise.resolve(this._medicines);
+  }
+
   findById(id: string): Promise<Medicine | null> {
     const medicine = this._medicines.find((m) => m.id === id);
     return Promise.resolve(medicine ?? null);

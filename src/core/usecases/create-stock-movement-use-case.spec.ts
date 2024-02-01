@@ -2,7 +2,7 @@ import { randomUUID } from 'node:crypto';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { Medicine } from '../domain/medicine-domain';
 import { StockMovementType } from '../domain/stock-movement-domain';
-import { InMemoryMedicineRepository } from '../repositories/inmemory/in-memory-medicien-repository';
+import { InMemoryMedicineRepository } from '../repositories/inmemory/in-memory-medicine-repository';
 import { InMemoryStockMovementRepository } from '../repositories/inmemory/in-memory-stock-movement-repository';
 import { MedicineRepository } from '../repositories/medicine-repository';
 import { StockMovementRepository } from '../repositories/stock-movement-repository';
