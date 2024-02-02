@@ -34,4 +34,8 @@ export class InMemoryMedicineRepository implements MedicineRepository {
     return Promise.resolve(medicine);
   }
 
+  set medicines(medicines: Medicine[]) {
+    this._medicines = medicines;
+  }
+
 }
