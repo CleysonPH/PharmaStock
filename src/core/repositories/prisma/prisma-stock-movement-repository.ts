@@ -4,6 +4,31 @@ import { StockMovementRepository } from '../stock-movement-repository';
 
 export class PrismaStockMovementRepository implements StockMovementRepository {
 
+  async findAll(from?: Date, to?: Date): Promise<StockMovement[]> {
+    const stockMovements = await prisma.stockMovement.findMany({
+      where: {
+        movementDate: {
+          gte: from,
+          lte: to
+        }
+      }
+    });
+
+    return stockMovements.map((stockMovement) => {
+      const type = stockMovement.type === 'IN'
+        ? StockMovementType.IN
+        : StockMovementType.OUT;
+
+      return {
+        id: stockMovement.id,
+        medicineId: stockMovement.medicineId,
+        quantity: stockMovement.quantity,
+        movementDate: stockMovement.movementDate,
+        type
+      };
+    });
+  }
+
   async create(stockMovement: StockMovement): Promise<StockMovement> {
     const createdStockMovement = await prisma.stockMovement.create({
       data: {

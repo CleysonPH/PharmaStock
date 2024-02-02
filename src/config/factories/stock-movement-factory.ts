@@ -2,6 +2,7 @@ import { InMemoryStockMovementRepository } from '@/core/repositories/inmemory/in
 import { PrismaStockMovementRepository } from '@/core/repositories/prisma/prisma-stock-movement-repository';
 import { StockMovementRepository } from '@/core/repositories/stock-movement-repository';
 import { CreateStockMovementUseCase } from '@/core/usecases/create-stock-movement-use-case';
+import { StockMovementReportUseCase } from '@/core/usecases/stock-movement-report-use-case';
 import { env } from '../env';
 import { MedicineFactory } from './medicine-factory';
 
@@ -22,6 +23,12 @@ export class StockMovementFactory {
     return new CreateStockMovementUseCase(
       this.stockMovementRepository,
       MedicineFactory.medicineRepository
+    );
+  }
+
+  static get stockMovementReportUseCase() {
+    return new StockMovementReportUseCase(
+      this.stockMovementRepository
     );
   }
 

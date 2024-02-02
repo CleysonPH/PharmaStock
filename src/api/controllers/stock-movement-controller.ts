@@ -33,4 +33,25 @@ export class StockMovementController {
     }
   }
 
+  static async report(req: Request, res: Response): Promise<void> {
+    try {
+      const reportStockMovementQuerySchema = z.object({
+        to: z.optional(z.coerce.date()),
+        from: z.optional(z.coerce.date())
+      });
+
+      const {
+        from,
+        to
+      } = reportStockMovementQuerySchema.parse(req.query);
+
+      const usecase = StockMovementFactory.stockMovementReportUseCase;
+      const report = await usecase.execute(from, to);
+
+      res.json(report);
+    } catch (error) {
+      handleError(error as Error, res);
+    }
+  }
+
 }

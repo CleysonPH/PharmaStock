@@ -12,3 +12,4 @@ apiRoutes.post('/medicines', MedicineController.create);
 apiRoutes.put('/medicines/:id', MedicineController.update);
 
 apiRoutes.post('/stock-movements', StockMovementController.create);
+apiRoutes.get('/stock-movements/report', StockMovementController.report);
