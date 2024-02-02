@@ -1,3 +1,11 @@
+## 1.5.0 (2024-02-02)
+
+### Feat
+
+- add stock inquiry route
+- implements stock inquiry use case
+- add find all in medicine repository
+
 ## 1.4.0 (2024-02-01)
 
 ### Feat
