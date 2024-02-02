@@ -34,19 +34,25 @@ export class StockMovementReportUseCase {
 
   private _lessUsedMedicine(stockMovements: StockMovement[]): string {
     const medicines = stockMovements.map((sm) => sm.medicineId);
-    const lessUsedMedicine = medicines.sort((a, b) =>
-      medicines.filter((medicine) => medicine === a).length -
-      medicines.filter((medicine) => medicine === b).length
+    const lessUsedMedicine = [...medicines].sort(
+      compareMedicine(medicines)
     ).shift();
-    return lessUsedMedicine || '';
+    return lessUsedMedicine ?? '';
   }
 
   private _mostUsedMedicine(stockMovements: StockMovement[]): string {
     const medicines = stockMovements.map((sm) => sm.medicineId);
-    const mostUsedMedicine = medicines.sort((a, b) =>
-      medicines.filter((medicine) => medicine === a).length -
-      medicines.filter((medicine) => medicine === b).length
+    const mostUsedMedicine = [...medicines].sort(
+      compareMedicine(medicines)
     ).pop();
-    return mostUsedMedicine || '';
+    return mostUsedMedicine ?? '';
   }
 }
+
+function compareMedicine(medicines: string[])
+  : ((a: string, b: string) => number) | undefined
+{
+  return (a, b) => medicines.filter((medicine) => medicine === a).length -
+    medicines.filter((medicine) => medicine === b).length;
+}
+
