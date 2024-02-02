@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { AuthController } from './controllers/auth-controller';
 import { MedicineController } from './controllers/medicine-controller';
 import { PingController } from './controllers/ping-controller';
 import { StockMovementController } from './controllers/stock-movement-controller';
@@ -13,3 +14,5 @@ apiRoutes.put('/medicines/:id', MedicineController.update);
 
 apiRoutes.post('/stock-movements', StockMovementController.create);
 apiRoutes.get('/stock-movements/report', StockMovementController.report);
+
+apiRoutes.post('/auth/login', AuthController.login);

@@ -1,3 +1,4 @@
+import { InvalidCredentialsError } from '@/core/errors/invalid-credentials-error';
 import { NotFoundError } from '@/core/errors/not-found-error';
 import { OutOfStockError } from '@/core/errors/out-of-stock-error';
 import { Response } from 'express';
@@ -27,6 +28,15 @@ const handleZodError = (error: ZodError, res: Response) => {
   });
 };
 
+const handleInvalidCredentialsError = (
+  error: InvalidCredentialsError,
+  res: Response
+) => {
+  res.status(401).json({
+    message: error.message
+  });
+};
+
 const handleError = (
   error: Error,
   res: Response
@@ -39,6 +49,9 @@ const handleError = (
     return;
   } else if (error instanceof OutOfStockError) {
     handleOutOfStockError(error, res);
+    return;
+  } else if (error instanceof InvalidCredentialsError) {
+    handleInvalidCredentialsError(error, res);
     return;
   }
   res.status(500).json({
