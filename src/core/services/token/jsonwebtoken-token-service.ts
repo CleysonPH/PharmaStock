@@ -6,7 +6,7 @@ export class JsonWebTokenTokenService implements TokenService {
 
   async generateToken(subject: string): Promise<string> {
     return sign(
-      subject, env.JWT_SECRET, { expiresIn: env.JWT_EXPIRATION }
+      { sub: subject }, env.JWT_SECRET, { expiresIn: env.JWT_EXPIRATION }
     );
   }
 
