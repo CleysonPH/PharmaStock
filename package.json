@@ -1,7 +1,7 @@
 {
   "name": "pharmastock",
   "version": "1.6.0",
-  "description": "Sistema de Gerenciamento de Estoque para uma Farm\u00e1cia",
+  "description": "Sistema de Gerenciamento de Estoque para uma Farmácia",
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -19,6 +19,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
     "@types/express": "^4.17.21",
     "@types/supertest": "^6.0.2",
     "@typescript-eslint/eslint-plugin": "^6.20.0",
@@ -35,6 +36,7 @@
   },
   "dependencies": {
     "@prisma/client": "^5.9.0",
+    "bcryptjs": "^2.4.3",
     "dotenv": "^16.4.1",
     "express": "^4.18.2",
     "prisma": "^5.9.0",
