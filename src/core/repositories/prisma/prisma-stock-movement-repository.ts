@@ -4,13 +4,21 @@ import { StockMovementRepository } from '../stock-movement-repository';
 
 export class PrismaStockMovementRepository implements StockMovementRepository {
 
-  async findAll(to: Date, from: Date): Promise<StockMovement[]> {
+  async findAll(from?: Date, to?: Date): Promise<StockMovement[]> {
     const stockMovements = await prisma.stockMovement.findMany({
       where: {
-        movementDate: {
-          gte: from,
-          lte: to
-        }
+        AND: [
+          {
+            movementDate: {
+              gte: from
+            }
+          },
+          {
+            movementDate: {
+              lte: to
+            }
+          }
+        ]
       }
     });
 

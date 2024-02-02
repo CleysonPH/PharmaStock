@@ -6,20 +6,26 @@ export class InMemoryStockMovementRepository implements
   StockMovementRepository
 {
 
-  constructor(private stockMovements: StockMovement[] = []) {}
+  private _stockMovements: StockMovement[];
+
+  constructor(initialStockMovements: StockMovement[] = []) {
+    this._stockMovements = initialStockMovements;
+  }
 
   create(stockMovement: StockMovement): Promise<StockMovement> {
     stockMovement.id = randomUUID();
-    this.stockMovements.push(stockMovement);
+    this._stockMovements.push(stockMovement);
     return Promise.resolve(stockMovement);
   }
 
-  findAll(to: Date, from: Date): Promise<StockMovement[]> {
-    return Promise.resolve(
-      this.stockMovements.filter(
-        (stockMovement) =>
-          stockMovement.movementDate >= from && stockMovement.movementDate <= to
-      )
-    );
+  findAll(from?: Date, to?: Date): Promise<StockMovement[]> {
+    if (to && from) {
+      return Promise.resolve(
+        this._stockMovements.filter(
+          (sm) => sm.movementDate >= from && sm.movementDate <= to
+        )
+      );
+    }
+    return Promise.resolve(this._stockMovements);
   }
 }
