@@ -36,8 +36,8 @@ export class StockMovementController {
   static async report(req: Request, res: Response): Promise<void> {
     try {
       const reportStockMovementQuerySchema = z.object({
-        to: z.optional(z.date()),
-        from: z.optional(z.date())
+        to: z.optional(z.coerce.date()),
+        from: z.optional(z.coerce.date())
       });
 
       const {

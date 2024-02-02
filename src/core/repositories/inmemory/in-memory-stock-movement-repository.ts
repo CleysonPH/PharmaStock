@@ -12,6 +12,10 @@ export class InMemoryStockMovementRepository implements
     this._stockMovements = initialStockMovements;
   }
 
+  set stockMovements(stockMovements: StockMovement[]) {
+    this._stockMovements = stockMovements;
+  }
+
   create(stockMovement: StockMovement): Promise<StockMovement> {
     stockMovement.id = randomUUID();
     this._stockMovements.push(stockMovement);
