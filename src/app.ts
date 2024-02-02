@@ -6,4 +6,4 @@ export const app = express();
 app.use(express.json());
 
 app.use('/api', apiRoutes);
-app.use(express.static('src/public'));
+app.use(express.static('public'));
