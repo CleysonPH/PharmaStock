@@ -1,0 +1,433 @@
+openapi: 3.0.0
+info:
+  title: PharmaStock API
+  version: 1.8.1
+
+servers:
+  - url: http://localhost:3000
+    description: Development server
+  - url: https://pharmastock.fly.dev
+    description: Production server
+
+tags:
+  - name: Medicines
+    description: Operations related to medicines
+  - name: Auth
+    description: Operations related to authentication
+  - name: Stock Movements
+    description: Operations related to stock movements
+  - name: Ping
+    description: Operations related to ping
+
+paths:
+  /api/ping:
+    get:
+      tags:
+        - Ping
+      summary: Ping the server
+      description: |
+        This operation pings the server to check if it is alive.
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Pong
+
+  /api/auth/login:
+    post:
+      tags:
+        - Auth
+      summary: Login
+      description: |
+        This operation logs in a user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginRequest"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TokenResponse"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationErrorResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Invalid credentials
+
+  /api/medicines:
+    post:
+      tags:
+        - Medicines
+      summary: Create a medicine
+      description: |
+        This operation creates a new medicine.
+      security:
+        - JWT: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MedicineRequest"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MedicineResponse"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationErrorResponse"
+                example:
+                  message: Validation failed
+                  errors:
+                    - field: name
+                      message: "Name is required"
+                    - field: price
+                      message: "Price must be a number"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Invalid credentials
+    get:
+      tags:
+        - Medicines
+      summary: List medicines
+      description: |
+        This operation lists all medicines.
+      security:
+        - JWT: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/MedicineResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Invalid credentials
+    put:
+      tags:
+        - Medicines
+      summary: Update a medicine
+      description: |
+        This operation updates a medicine.
+      security:
+        - JWT: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MedicineRequest"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MedicineResponse"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationErrorResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Invalid credentials
+
+  /api/stock-movements:
+    post:
+      tags:
+        - Stock Movements
+      summary: Create a stock movement
+      description: |
+        This operation creates a new stock movement.
+      security:
+        - JWT: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/StockMovementRequest"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StockMovementResponse"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationErrorResponse"
+                example:
+                  message: Validation failed
+                  errors:
+                    - field: medicineId
+                      message: "Medicine ID is required"
+                    - field: quantity
+                      message: "Quantity must be a number"
+                    - field: type
+                      message: "Type must be IN or OUT"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Invalid credentials
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Medicine not found
+
+  /api/stock-movemnts/report:
+    get:
+      tags:
+        - Stock Movements
+      summary: Get stock movements report
+      description: |
+        This operation gets a report of stock movements.
+      security:
+        - JWT: []
+      parameters:
+        - name: from
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+            example: 2021-08-01
+        - name: to
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+            example: 2021-08-31
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/StockMovementReportResponse"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationErrorResponse"
+                example:
+                  message: Validation failed
+                  errors:
+                    - field: from
+                      message: "Invalid date"
+                    - field: to
+                      message: "Invalid date"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Invalid credentials
+
+components:
+  schemas:
+    LoginRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          example: user@mail.com
+        password:
+          type: string
+          example: password
+    TokenResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+    ValidationErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Validation failed
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                example: email
+              message:
+                type: string
+                example: "Invalid email"
+    MedicineRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Paracetamol
+        description:
+          type: string
+          example: Painkiller
+        price:
+          type: number
+          example: 10.5
+    MedicineResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 123e4567-e89b-12d3-a456-426614174000
+        name:
+          type: string
+          example: Paracetamol
+        description:
+          type: string
+          example: Painkiller
+        price:
+          type: number
+          example: 10.5
+        quantity:
+          type: number
+          example: 100
+    StockMovementRequest:
+      type: object
+      properties:
+        medicineId:
+          type: string
+          format: uuid
+          example: 123e4567-e89b-12d3-a456-426614174000
+        quantity:
+          type: number
+          example: 10
+        type:
+          type: string
+          enum: [IN, OUT]
+          example: IN
+    StockMovementResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 123e4567-e89b-12d3-a456-426614174000
+        medicineId:
+          type: string
+          format: uuid
+          example: 123e4567-e89b-12d3-a456-426614174000
+        quantity:
+          type: number
+          example: 10
+        type:
+          type: string
+          enum: [IN, OUT]
+          example: IN
+        movementDate:
+          type: string
+          format: date-time
+          example: 2021-08-01T00:00:00.000Z
+    StockMovementReportResponse:
+      type: object
+      properties:
+        stockMovements:
+          type: array
+          items:
+            $ref: "#/components/schemas/StockMovementResponse"
+        total:
+          type: number
+          example: 100
+        totalIn:
+          type: number
+          example: 100
+        totalOut:
+          type: number
+          example: 0
+        mostUsedMedicine:
+          type: string
+          format: uuid
+          example: 123e4567-e89b-12d3-a456-426614174000
+        lessUsedMedicine:
+          type: string
+          format: uuid
+          example: 123e4567-e89b-12d3-a456-426614174000
+  securitySchemes:
+    JWT:
+      type: http
+      scheme: bearer
