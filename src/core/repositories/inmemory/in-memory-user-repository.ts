@@ -10,6 +10,10 @@ export class InMemoryUserRepository implements UserRepository {
     this._users = users;
   }
 
+  set users(users: User[]) {
+    this._users = users;
+  }
+
   async create(user: User): Promise<User> {
     user.id = randomUUID();
     this._users.push(user);
