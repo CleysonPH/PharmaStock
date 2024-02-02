@@ -1,7 +1,7 @@
 import { randomUUID } from 'node:crypto';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { Medicine } from '../domain/medicine-domain';
-import { InMemoryMedicineRepository } from '../repositories/inmemory/in-memory-medicien-repository';
+import { InMemoryMedicineRepository } from '../repositories/inmemory/in-memory-medicine-repository';
 import { MedicineRepository } from '../repositories/medicine-repository';
 import { UpdateMedicineUseCase } from './update-medicine-use-case';
 

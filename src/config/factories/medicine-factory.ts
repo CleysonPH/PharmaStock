@@ -1,7 +1,8 @@
-import { InMemoryMedicineRepository } from '@/core/repositories/inmemory/in-memory-medicien-repository';
+import { InMemoryMedicineRepository } from '@/core/repositories/inmemory/in-memory-medicine-repository';
 import { MedicineRepository } from '@/core/repositories/medicine-repository';
 import { PrismaMedicineRepository } from '@/core/repositories/prisma/prisma-medicine-repository';
 import { CreateMedicineUseCase } from '@/core/usecases/create-medicine-use-case';
+import { StockInquiryUseCase } from '@/core/usecases/stock-inquiry-use-case';
 import { UpdateMedicineUseCase } from '@/core/usecases/update-medicine-use-case';
 import { env } from '../env';
 
@@ -24,6 +25,10 @@ export class MedicineFactory {
 
   static get updateMedicineUseCase() {
     return new UpdateMedicineUseCase(this.medicineRepository);
+  }
+
+  static get stockInquiryUseCase() {
+    return new StockInquiryUseCase(this.medicineRepository);
   }
 
 }
