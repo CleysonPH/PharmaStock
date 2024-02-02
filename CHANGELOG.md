@@ -1,3 +1,9 @@
+## 1.8.3 (2024-02-02)
+
+### Fix
+
+- change public folder location
+
 ## 1.8.2 (2024-02-02)
 
 ### Fix
