@@ -1,3 +1,16 @@
+## 1.6.0 (2024-02-02)
+
+### Feat
+
+- update report output
+- add stock movement report route
+- add stock movement report use case
+- add find all in stock movement repository
+
+### Refactor
+
+- fix sonar issues
+
 ## 1.5.1 (2024-02-02)
 
 ### Refactor
