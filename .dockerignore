@@ -1,0 +1,6 @@
+.github
+.vscode
+build
+coverage
+node_modules
+docker-compose.yaml
