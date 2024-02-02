@@ -1,7 +1,7 @@
 import { UserFactory } from '@/config/factories/user-factory';
 import inquirer from 'inquirer';
 
-async function createUserCmd() {
+export async function createUserCmd() {
   const answers = await inquirer.prompt([
     {
       type: 'input',
