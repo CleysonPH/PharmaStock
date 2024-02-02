@@ -1,9 +1,42 @@
 import { app } from '@/app';
+import { MedicineFactory } from '@/config/factories/medicine-factory';
+import { Medicine } from '@/core/domain/medicine-domain';
+import { InMemoryMedicineRepository } from '@/core/repositories/inmemory/in-memory-medicine-repository';
 import { randomUUID } from 'node:crypto';
 import request from 'supertest';
-import { describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 
 describe('MedicineController', async () => {
+  let initialMedicines: Medicine[];
+
+  beforeEach(async () => {
+    initialMedicines = [
+      {
+        id: randomUUID(),
+        name: 'Paracetamol',
+        description: 'Painkiller',
+        price: 10,
+        quantity: 0
+      },
+      {
+        id: randomUUID(),
+        name: 'Ibuprofen',
+        description: 'Anti-inflammatory',
+        price: 15,
+        quantity: 0
+      },
+      {
+        id: randomUUID(),
+        name: 'Omeprazole',
+        description: 'Gastric protector',
+        price: 20,
+        quantity: 0
+      }
+    ];
+    const repository = MedicineFactory.medicineRepository as InMemoryMedicineRepository;
+    repository.medicines = initialMedicines;
+  });
+
   it('should create a new medicine', async () => {
     const response = await request(app)
       .post('/api/medicines')
@@ -222,12 +255,6 @@ describe('MedicineController', async () => {
       .get('/api/medicines');
 
     expect(response.status).toBe(200);
-    expect(response.body).toMatchObject(Array(response.body.length).fill({
-      id: expect.any(String),
-      name: expect.any(String),
-      description: expect.any(String),
-      price: expect.any(Number),
-      quantity: expect.any(Number)
-    }));
+    expect(response.body).toEqual(initialMedicines);
   });
 });
