@@ -216,4 +216,18 @@ describe('MedicineController', async () => {
 
     expect(response.status).toBe(404);
   });
+
+  it('should return status 200 with all medicines', async () => {
+    const response = await request(app)
+      .get('/api/medicines');
+
+    expect(response.status).toBe(200);
+    expect(response.body).toMatchObject(Array(response.body.length).fill({
+      id: expect.any(String),
+      name: expect.any(String),
+      description: expect.any(String),
+      price: expect.any(Number),
+      quantity: expect.any(Number)
+    }));
+  });
 });

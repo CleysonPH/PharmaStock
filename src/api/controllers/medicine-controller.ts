@@ -63,4 +63,15 @@ export class MedicineController {
       handleError(error as Error, res);
     }
   }
+
+  static async stockInquiry (req: Request, res: Response) {
+    try {
+      const usecase = MedicineFactory.stockInquiryUseCase;
+      const medicines = await usecase.execute();
+
+      res.json(medicines);
+    } catch (error) {
+      handleError(error as Error, res);
+    }
+  }
 }
