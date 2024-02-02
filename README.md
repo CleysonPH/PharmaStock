@@ -45,6 +45,21 @@ npm run start:dev
 
 O app estará disponível no seu browser pelo endereço http://localhost:3000. A documentação da API estará disponível no endereço http://localhost:3000/docs.html.
 
+Todas as rotas da API com exceção da rota de autenticação necessitam de um token de autenticação. Para obter um token, é necessário fazer uma requisição para a rota de autenticação com um usuário e senha válidos. A aplicação já possui um usuário cadastrado com as seguintes credenciais:
+
+```json
+{
+  "email": "test@mail.com",
+  "password": "senha@123",
+}
+```
+
+Caso deseje, você pode criar um novo usuário através do comando abaixo:
+
+```bash
+npm run cmd:create-user"
+```
+
 ## Testes
 
 Para executar os testes, utilize o seguinte comando:
