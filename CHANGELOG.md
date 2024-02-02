@@ -1,3 +1,9 @@
+## 1.8.2 (2024-02-02)
+
+### Fix
+
+- change message to trigger deploy
+
 ## 1.8.1 (2024-02-02)
 
 ### Fix
