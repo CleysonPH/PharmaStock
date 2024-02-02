@@ -1,3 +1,9 @@
+## 1.8.1 (2024-02-02)
+
+### Fix
+
+- change startup message to trigger new version
+
 ## 1.8.0 (2024-02-02)
 
 ### Feat
