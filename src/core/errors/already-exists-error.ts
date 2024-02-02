@@ -1,5 +1,1 @@
-export class AlreadyExistsError extends Error {
-  constructor(message: string) {
-    super(message);
-  }
-}
+export class AlreadyExistsError extends Error {}
