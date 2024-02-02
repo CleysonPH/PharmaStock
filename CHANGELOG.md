@@ -1,3 +1,9 @@
+## 1.5.1 (2024-02-02)
+
+### Refactor
+
+- mock medicinee repository data in controller tests
+
 ## 1.5.0 (2024-02-02)
 
 ### Feat
