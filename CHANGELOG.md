@@ -1,3 +1,21 @@
+## 1.7.0 (2024-02-02)
+
+### Feat
+
+- add login route
+- add authenticate use case
+- add token service
+- add command to create a user
+- add create user use case
+- add password encoder service
+- add user repository
+- add user domain and model
+
+### Fix
+
+- fix sonar typescript:S6606 issue
+- fix sonar typescript:S6647 issue
+
 ## 1.6.0 (2024-02-02)
 
 ### Feat

@@ -1,7 +1,7 @@
 {
   "name": "pharmastock",
-  "version": "1.6.0",
-  "description": "Sistema de Gerenciamento de Estoque para uma Farmácia",
+  "version": "1.7.0",
+  "description": "Sistema de Gerenciamento de Estoque para uma Farm\u00e1cia",
   "main": "index.js",
   "type": "module",
   "scripts": {
