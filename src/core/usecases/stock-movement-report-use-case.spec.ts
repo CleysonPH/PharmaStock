@@ -9,36 +9,45 @@ describe('CreateMedicineUseCase', () => {
   let sut: StockMovementReportUseCase;
   let stockMovementRepository: StockMovementRepository;
   let stockMovements: StockMovement[];
+  const medicines = [randomUUID(), randomUUID()];
 
   beforeEach(() => {
+
     stockMovements = [
       {
         id: randomUUID(),
-        medicineId: randomUUID(),
+        medicineId: medicines[0],
         quantity: 10,
-        movementDate: new Date('2021-01-01'),
-        type: StockMovementType.IN
+        type: StockMovementType.IN,
+        movementDate: new Date('2021-01-01')
       },
       {
         id: randomUUID(),
-        medicineId: randomUUID(),
-        quantity: 20,
-        movementDate: new Date('2021-01-02'),
-        type: StockMovementType.OUT
+        medicineId: medicines[1],
+        quantity: 5,
+        type: StockMovementType.IN,
+        movementDate: new Date('2021-01-02')
       },
       {
         id: randomUUID(),
-        medicineId: randomUUID(),
-        quantity: 30,
-        movementDate: new Date('2021-01-03'),
-        type: StockMovementType.IN
+        medicineId: medicines[0],
+        quantity: 2,
+        type: StockMovementType.OUT,
+        movementDate: new Date('2021-01-03')
       },
       {
         id: randomUUID(),
-        medicineId: randomUUID(),
-        quantity: 40,
-        movementDate: new Date('2021-01-04'),
-        type: StockMovementType.OUT
+        medicineId: medicines[1],
+        quantity: 3,
+        type: StockMovementType.OUT,
+        movementDate: new Date('2021-01-04')
+      },
+      {
+        id: randomUUID(),
+        medicineId: medicines[0],
+        quantity: 7,
+        type: StockMovementType.IN,
+        movementDate: new Date('2021-01-05')
       }
     ];
 
@@ -46,15 +55,27 @@ describe('CreateMedicineUseCase', () => {
     sut = new StockMovementReportUseCase(stockMovementRepository);
   });
 
-  it('should return all stock movements', async () => {
-    const result = await sut.execute();
-
-    expect(result).toEqual(stockMovements);
+  it('should return the stock movements report', async () => {
+    const report = await sut.execute();
+    expect(report).toEqual({
+      stockMovements,
+      total: 5,
+      totalIn: 3,
+      totalOut: 2,
+      mostUsedMedicine: medicines[0],
+      lessUsedMedicine: medicines[1]
+    });
   });
 
-  it('should return all stock movements between two dates', async () => {
-    const result = await sut.execute(new Date('2021-01-02'), new Date('2021-01-03'));
-
-    expect(result).toEqual([stockMovements[1], stockMovements[2]]);
+  it('should return the stock movements report filtered by date', async () => {
+    const report = await sut.execute(new Date('2021-01-02'), new Date('2021-01-04'));
+    expect(report).toEqual({
+      stockMovements: stockMovements.slice(1, 4),
+      total: 3,
+      totalIn: 1,
+      totalOut: 2,
+      mostUsedMedicine: medicines[1],
+      lessUsedMedicine: medicines[0]
+    });
   });
 });
